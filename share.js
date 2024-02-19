@@ -100,7 +100,6 @@ for (const btn of allBtn) {
       grandTotal.innerText = sum;
 
 
-
       const currentSeat = document.getElementById('available-seat').innerText;
       const convert = parseInt(currentSeat)
       const sub = convert - 1;
