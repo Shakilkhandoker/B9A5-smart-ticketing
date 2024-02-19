@@ -8,3 +8,18 @@
 .font-inter {
    font-family: "Inter", sans-serif;
 }
+.selected{
+   background-color: green;
+   color: white;
+}
+/* .btn-seat{
+   background-color: rgba(128, 128, 128, 0.264)!important ; 
+} */
+
+#ticket-price span:nth-child(2) {
+   margin-left: 80px;
+}
+
+#ticket-price span:nth-child(3) {
+   margin-left: 90px;
+}

@@ -54,7 +54,7 @@
       </nav>
 
       <!-- ===Banner section=== -->
-      <div class="min-h-screen w-full  bg-[url(images/banner.png)] bg-no-repeat bg-center">
+      <div class="min-h-screen w-full relative bg-[url(images/banner.png)] bg-no-repeat bg-center">
          <div class="flex flex-col justify-center items-center relative top-64 ">
             <h1 class="text-white text-6xl font-bold">World-best-Travel-with<h1
                   class="text-green-500 text-5xl font-bold mt-5"> Share Travels</h1>
@@ -224,55 +224,55 @@
                </div>
                <div class="  grid grid-cols-5 w-[500px] gap-12 justify-center items-center mt-8">
                   <h1 class="text-xl font-bold">A</h1>
-                  <button onclick="buttonColor()" id="color" class="btn btn-change">A1</button>
-                  <button class="btn btn-change">A2</button>
-                  <button class="btn btn-change">A4</button>
-                  <button class="btn btn-change">A3</button>
+                  <button  class="btn btn-seat">A1</button>
+                  <button class="btn btn-seat">A2</button>
+                  <button class="btn btn-seat">A3</button>
+                  <button class="btn btn-seat">A4</button>
                   <h1 class="text-xl font-bold">B</h1>
-                  <button class="btn btn-change">B1</button>
-                  <button class="btn btn-change">B2</button>
-                  <button class="btn btn-change">B3</button>
-                  <button class="btn btn-change">B4</button>
+                  <button class="btn btn-seat">B1</button>
+                  <button class="btn btn-seat">B2</button>
+                  <button class="btn btn-seat">B3</button>
+                  <button class="btn btn-seat">B4</button>
                   <h1 class="text-xl font-bold">C</h1>
-                  <button class="btn btn-change">C1</button>
-                  <button class="btn btn-change">C2</button>
-                  <button class="btn btn-change">C3</button>
-                  <button class="btn btn-change">C4</button>
+                  <button class="btn btn-seat">C1</button>
+                  <button class="btn btn-seat">C2</button>
+                  <button class="btn btn-seat">C3</button>
+                  <button class="btn btn-seat">C4</button>
                   <h1 class="text-xl font-bold">D</h1>
-                  <button class="btn btn-change">D1</button>
-                  <button class="btn btn-change">D2</button>
-                  <button class="btn btn-change">D3</button>
-                  <button class="btn btn-change">D4</button>
+                  <button class="btn btn-seat">D1</button>
+                  <button class="btn btn-seat">D2</button>
+                  <button class="btn btn-seat">D3</button>
+                  <button class="btn btn-seat">D4</button>
                   <h1 class="text-xl font-bold">E</h1>
-                  <button class="btn btn-change">E1</button>
-                  <button class="btn btn-change">E2</button>
-                  <button class="btn btn-change">E3</button>
-                  <button class="btn btn-change">E4</button>
+                  <button class="btn btn-seat">E1</button>
+                  <button class="btn btn-seat">E2</button>
+                  <button class="btn btn-seat">E3</button>
+                  <button class="btn btn-seat">E4</button>
                   <h1 class="text-xl font-bold">F</h1>
-                  <button class="btn btn-change">F1</button>
-                  <button class="btn btn-change">F2</button>
-                  <button class="btn btn-change">F3</button>
-                  <button class="btn btn-change">F4</button>
+                  <button class="btn btn-seat">F1</button>
+                  <button class="btn btn-seat">F2</button>
+                  <button class="btn btn-seat">F3</button>
+                  <button class="btn btn-seat">F4</button>
                   <h1 class="text-xl font-bold">G</h1>
-                  <button class="btn btn-change">G2</button>
-                  <button class="btn btn-change">G3</button>
-                  <button class="btn btn-change">G4</button>
-                  <button class="btn btn-change">G1</button>
+                  <button class="btn btn-seat">G1</button>
+                  <button class="btn btn-seat">G2</button>
+                  <button class="btn btn-seat">G3</button>
+                  <button class="btn btn-seat">G4</button>
                   <h1 class="text-xl font-bold">H</h1>
-                  <button class="btn btn-change">H1</button>
-                  <button class="btn btn-change">H2</button>
-                  <button class="btn btn-change">H3</button>
-                  <button class="btn btn-change">H4</button>
+                  <button class="btn btn-seat">H1</button>
+                  <button class="btn btn-seat">H2</button>
+                  <button class="btn btn-seat">H3</button>
+                  <button class="btn btn-seat">H4</button>
                   <h1 class="text-xl font-bold">I</h1>
-                  <button class="btn btn-change">I1</button>
-                  <button class="btn btn-change">I2</button>
-                  <button class="btn btn-change">I3</button>
-                  <button class="btn btn-change">I4</button>
+                  <button class="btn btn-seat">I1</button>
+                  <button class="btn btn-seat">I2</button>
+                  <button class="btn btn-seat">I3</button>
+                  <button class="btn btn-seat">I4</button>
                   <h1 class="text-xl font-bold">J</h1>
-                  <button class="btn btn-change">J1</button>
-                  <button class="btn btn-change">J2</button>
-                  <button class="btn btn-change">J3</button>
-                  <button class="btn btn-change">J4</button>
+                  <button class="btn btn-seat">J1</button>
+                  <button class="btn btn-seat">J2</button>
+                  <button class="btn btn-seat">J3</button>
+                  <button class="btn btn-seat">J4</button>
                </div>
             </div>
 
@@ -283,12 +283,12 @@
                   <div class="flex justify-center items-center gap-24">
                      <div class="flex justify-center items-center gap-2">
                         <h1 class="font-bold">Seats</h1>
-                        <h1 class="text-green-500 font-bold " id="calculate">0</h1>
+                        <h1 class="text-green-500 font-bold " id="calculate-seat-count">0</h1>
                      </div>
                      <h1 class="font-bold">class</h1>
                      <h1 class="font-bold">price</h1>
                   </div>
-                  <div id="ticket-price" class="h-28"></div>
+                  <div id="ticket-price" class="h-full flex flex-col"></div>
                   <hr>
                   <div class="flex justify-between">
                      <h1 class="font-bold">Total price</h1>
