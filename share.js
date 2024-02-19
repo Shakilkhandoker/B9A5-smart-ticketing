@@ -92,10 +92,7 @@ for (const btn of allBtn) {
       const addPrice = document.getElementById('total-price').innerText;
       const converted = parseInt(addPrice);
       const sum = converted + parseInt(p3.innerText);
-
       document.getElementById('total-price').innerText = sum;
-
-
       const grandTotal = document.getElementById('grand-total');
       grandTotal.innerText = sum;
 
