@@ -1,145 +1,144 @@
-// const allButton = document.getElementsByClassName('btn-seat');
-// for (const Btn of allButton) {
-//    Btn.addEventListener("click", function () {
-//       Btn.style.backgroundColor = 'green';
-//    })
-// }
+const passengerSeatsEl = document.getElementById('passenger-seats')
+const availableSeatsEl = document.getElementById('available-seats')
+const totalSelectedSeatsEl = document.getElementById('total-selected-seat')
+const selectedSeatsList = document.getElementById('selected-seats-list')
+const totalPriceEl = document.getElementById('total-price')
+const grandTotalEl = document.getElementById('grand-total')
+const couponFormEl = document.getElementById('coupon-form')
+const couponApplyBtn = document.getElementById('coupon-apply')
+const seatsNextBtn = document.getElementById('seats-next-btn')
+const passengerInfoForm = document.getElementById('passenger-info-form')
 
 
-// button selection
-document.addEventListener('DOMContentLoaded', function () {
-   const selectableButtons = document.querySelectorAll('.btn-seat');
-   const maxSelections = 40;
-   let selectedButtons = 0;
+// vars
+const perSeatPrice = 550
+const totalSelectedSeats = []
+const coupons = ['NEW15', 'Couple 20']
+let discountByCoupon = 0
+let availableSeats = 8
+let totalPrice = 0
+let grandTotal = 0
 
-   selectableButtons.forEach(button => {
-      button.addEventListener('click', function () {
-         if (selectedButtons >= maxSelections) {
-            alert('You can choose more then four set at a time.');
-         } else if (button.classList.contains('selected')) {
-            button.classList.remove('selected');
-            button.style.backgroundColor='rgba(128, 128, 128, 0.264)'
-            selectedButtons--;
-         } else {
-            button.classList.add('selected');
-            button.style.backgroundColor = 'green';
-            selectedButtons++;
-            if (selectedButtons >= maxSelections) {
-               selectableButtons.forEach(disableButton);
-            }
-         }
-      });
-   });
-
-   function disableButton(button) {
-      button.disabled = true;
-   }
-});
-
-
-// input field
-document.getElementById('input-field').addEventListener('input', function () {
-   const inputValue = this.value.trim();
-
-   const isNumber = !isNaN(inputValue) && inputValue !== '';
-   document.getElementById('myButton').disabled = !isNumber;
-});
-
-// reload function
-document.addEventListener('DOMContentLoaded', function () {
-
-   const refreshButton = document.getElementById('refreshButton');
-   refreshButton.addEventListener('click', function () {
-      location.reload();
-   });
-});
-
-
-
-// ------------------------------------
-// scroll the button to go set selection section ------
-
-document.getElementById('scroll-bar').addEventListener('click', function () {
-   document.getElementById('set-container').scrollIntoView({ behavior: 'smooth' });
-});
-
-
-const allBtn = document.getElementsByClassName('btn-seat');
-let count = 0;
-let sum = 0;
-let sub = 1;
-for (const btn of allBtn) {
-   btn.addEventListener("click", function (e) {
-      count = count + 1;
-      const calcu = document.getElementById('calculate-seat-count').innerText = count;
-
-      const ticketName = e.target.innerText;
-
-      const travel = document.getElementById('ticket-price');
-      const li = document.createElement('li');
-      const p = document.createElement('span')
-      const p2 = document.createElement('span')
-      const p3 = document.createElement('span')
-      p.innerText = ticketName;
-      p2.innerText = "Economy"
-      p3.innerText = "550"
-      li.appendChild(p);
-      li.appendChild(p2);
-      li.appendChild(p3);
-      travel.appendChild(li);
-
-
-      const addPrice = document.getElementById('total-price').innerText;
-      const converted = parseInt(addPrice);
-      const sum = converted + parseInt(p3.innerText);
-      document.getElementById('total-price').innerText = sum;
-      const grandTotal = document.getElementById('grand-total');
-      grandTotal.innerText = sum;
-
-
-      const currentSeat = document.getElementById('available-seat').innerText;
-      const convert = parseInt(currentSeat)
-      const sub = convert - 1;
-      const finalResult = document.getElementById('available-seat').innerText = sub;
-      console.log(finalResult);
-
-
-
-   })
+// functions
+function calculateCouponDiscounts(discountPercentage) {
+   discountByCoupon = totalPrice * discountPercentage / 100
+   grandTotal = totalPrice - discountByCoupon
+   grandTotalEl.textContent = grandTotal
+   couponFormEl.classList.add('hidden')
 }
 
-
-const applyButton = document.getElementById('apply-button');
-applyButton.addEventListener("click", function () {
-   const couponElement = document.getElementById("input-field").value;
-   console.log(couponElement);
-
-   const discountAmountElement = document.getElementById("dis-total");
-   const grandTotalElement = document.getElementById('grand-total');
-
-   if (couponElement === "NEW15") {
-      const grandTotal = parseInt(grandTotalElement.innerText);
-      const result = grandTotal * 0.15;
-      console.log(result);
-
-      discountAmountElement.innerText = result;
-
-      document.getElementById("grand-total").innerText = grandTotal - result;
-
-      const playGround = document.getElementById('hidden-part');
-      playGround.classList.add('hidden');
-
-
-   } else if (couponElement === "Couple 20") {
-      const grandTotal = parseInt(grandTotalElement.innerText);
-      const result = grandTotal * 0.2;
-      discountAmountElement.innerText = result;
-      document.getElementById("grand-total").innerText = grandTotal - result;
-
-      const playGround = document.getElementById('hidden-part');
-      playGround.classList.add('hidden');
-
-   } else {
-      alert("Invalid Coupon");
+function disableBtn(buttonEl) {
+   buttonEl.disabled = true
+   buttonEl.classList.add('cursor-not-allowed', 'opacity-50')
+}
+function enableBtn(buttonEl) {
+   buttonEl.disabled = false
+   buttonEl.classList.remove('cursor-not-allowed', 'opacity-50')
+}
+// enable next-btn: if at least 1 seat is selected & phone-number is not empty
+function enablePassengerNextBtn() {
+   if (totalSelectedSeats.length > 0 && passengerInfoForm['passenger-number'].value.trim().length > 0) {
+      enableBtn(seatsNextBtn)
    }
-});
+}
+
+// ## on page load
+window.addEventListener('DOMContentLoaded', function () {
+   availableSeatsEl.textContent = availableSeats
+   totalSelectedSeatsEl.textContent = totalSelectedSeats.length
+   selectedSeatsList.innerHTML = ''
+   disableBtn(couponApplyBtn)
+   disableBtn(seatsNextBtn)
+
+   // total & grand-total price reset
+   totalPriceEl.textContent = totalPrice
+   grandTotalEl.textContent = grandTotal
+})
+
+// ## add click event to all seats for selecting by user
+passengerSeatsEl.addEventListener('click', e => {
+   // check if clicked on a seat
+   if (e.target.tagName === 'BUTTON') {
+      const selectedSeatId = e.target.id
+
+      // prevent clicking same seat again
+      if (totalSelectedSeats.includes(selectedSeatId)) {
+         alert('same seat can not be selected twice')
+         return
+      }
+
+      // return if already 4 seats are selected; also show warning
+      if (totalSelectedSeats.length === 4) {
+         alert('you can not select more than 4 seats at a time')
+         return
+      } else {
+         // update total selected seat
+         totalSelectedSeats.push(selectedSeatId)
+         totalSelectedSeatsEl.textContent = totalSelectedSeats.length
+      }
+
+      // enable coupon apply btn if 4 seats are selected
+      if (totalSelectedSeats.length === 4) {
+         enableBtn(couponApplyBtn)
+      }
+
+      // enable next-btn
+      enablePassengerNextBtn()
+
+      // update bg-color of selected seat
+      document.getElementById(selectedSeatId).classList.add('selected-seat')
+
+      // update available seats
+      availableSeats -= 1
+      availableSeatsEl.textContent = availableSeats
+
+      // update selected-seats-list
+      selectedSeatsList.innerHTML += `
+      <tr class="border-t">
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${selectedSeatId}</th>
+      <td class="px-6 py-4">economy</td>
+      <td class="px-6 py-4">550</td>
+      </tr> `
+
+      // update total 
+      totalPrice += perSeatPrice
+      totalPriceEl.textContent = totalPrice
+      // grand total
+      grandTotal += perSeatPrice
+      grandTotalEl.textContent = grandTotal
+   }
+})
+
+// ## apply coupon
+couponFormEl.addEventListener('submit', e => {
+   e.preventDefault()
+
+   if (totalSelectedSeats.length < 4) {
+      alert('select 4 seats to get coupon discount')
+      return
+   }
+
+   const couponOfUser = couponFormEl['coupon-inp'].value.trim()
+
+   // if coupon matches
+   if (coupons.includes(couponOfUser)) {
+      if (couponOfUser === 'NEW15') {
+         calculateCouponDiscounts(15)
+      } else if (couponOfUser === 'Couple 20') {
+         calculateCouponDiscounts(20)
+      }
+   } else {
+      alert('invalid coupon!!')
+   }
+})
+
+// passenger-info-form change
+passengerInfoForm['passenger-number'].addEventListener('input', function (e) {
+   // enable next-btn
+   enablePassengerNextBtn()
+})
+
+// prevnt form submission on form submit: next btn 
+passengerInfoForm.addEventListener('submit', e => {
+   e.preventDefault()
+})
